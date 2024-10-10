@@ -16,7 +16,7 @@ function TokenPairs() {
     decimals: 6,
     logoURI: 'https://assets.coingecko.com/coins/images/325/small/Tether-logo.png',
   });
-  const [sourceAmount, setSourceAmount] = useState('1'); // Default amount is 100
+  const [sourceAmount, setSourceAmount] = useState('10'); // Default amount is 100
 
   useEffect(() => {
     const fetchTokens = async () => {
