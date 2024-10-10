@@ -177,7 +177,7 @@ function ImprovedDEXComparisonComponent({ tokens, sourceToken, sourceAmount }) {
         const buyOutAmount = parseFloat(parseFloat(data.buyOutAmount).toFixed(4));;
         const sellOutAmount = parseFloat(parseFloat(data.sellOutAmount).toFixed(4));;
         const polygonFee = parseFloat(data?.buyData?.priceRoute?.gasCostUSD).toFixed(4); // Fixed network fee
-        const exchangeFee = initialAmount * 0.006; // 0.6% exchange fee
+        const exchangeFee = initialAmount * 0.0035; // 0.6% exchange fee
 
         const finalNetAmount = sellOutAmount - polygonFee - exchangeFee;
         const netProfit = finalNetAmount - initialAmount;
