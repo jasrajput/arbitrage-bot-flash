@@ -47,9 +47,6 @@
       "react-app/jest"
     ]
   },
-  "resolutions": {
-    "@solana/web3.js": "0.0.0"
-  },
   "browserslist": {
     "production": [
       ">0.2%",
