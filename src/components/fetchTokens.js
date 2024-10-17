@@ -59,7 +59,7 @@ const OpenOceanTokenList = () => {
                     sum += arbitrageRatio;
                     sumSquares += arbitrageRatio * arbitrageRatio;
                     count++;
-
+ 
                     // Update token frequency count
                     [token1.symbol, token2.symbol].forEach(symbol => {
                         tokenCounts[symbol] = (tokenCounts[symbol] || 0) + 1;
