@@ -9,7 +9,7 @@ const RENOWNED_TOKENS = [
 const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042', '#8884d8', '#82ca9d', '#ffc658', '#8dd1e1', '#a4de6c', '#d0ed57', '#ffc658'];
 
 const AAVE_NETWORK_FEE_RATE = 0.0009; // 0.09%
-const EXCHANGE_FEE_RATE = 0.003; // 0.3%
+const EXCHANGE_FEE_RATE = 0.006; // 0.3%
 const FIXED_NETWORK_FEE = 0.02; // $0.02
 const SLLIPAGE = 0.001;
 

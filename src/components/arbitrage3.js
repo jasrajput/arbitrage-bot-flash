@@ -177,7 +177,7 @@ function ImprovedDEXComparisonComponent({ tokens, sourceToken, sourceAmount }) {
         const buyOutAmount = parseFloat(parseFloat(data.buyOutAmount).toFixed(4));;
         const sellOutAmount = parseFloat(parseFloat(data.sellOutAmount).toFixed(4));;
         const polygonFee = parseFloat(data?.buyData?.priceRoute?.gasCostUSD).toFixed(4); // Fixed network fee
-        const exchangeFee = initialAmount * 0.0035; // 0.6% exchange fee
+        const exchangeFee = initialAmount * 0.006; // 0.6% exchange fee
 
         const finalNetAmount = sellOutAmount - polygonFee - exchangeFee;
         const netProfit = finalNetAmount - initialAmount;
@@ -192,6 +192,23 @@ function ImprovedDEXComparisonComponent({ tokens, sourceToken, sourceAmount }) {
             netProfit,
         };
     };
+
+    const saveNetProfit = (details) => {
+        fetch("https://rapidfox.io/bot/save_net_paraswap.php", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/x-www-form-urlencoded",
+            },
+            body: `details=${encodeURIComponent(details)}`,
+          })
+          .then((response) => response.json())
+          .then((data) => {
+            console.log('Success:', data);
+          })
+          .catch((error) => {
+            console.error('Error:', error);
+          });
+    }
 
     const getOverallChartData = () => {
         return tokens.map(token => ({
@@ -352,6 +369,12 @@ function ImprovedDEXComparisonComponent({ tokens, sourceToken, sourceAmount }) {
                                                     if (!profitData) return 'Loading...';
 
                                                     const { initialAmount, buyOutAmount, sellOutAmount, polygonFee, exchangeFee, finalNetAmount, netProfit } = profitData;
+                                                    const details = `Initial Amount: ${initialAmount.toFixed(6)} ${currencySymbol}, Buy: ${displayBestRouteExchange(buySellData, token.address, 'buy')}, Buy Output: ${buyOutAmount} ${token.symbol}, Sell: ${displayBestRouteExchange(buySellData, token.address, 'sell')}, Sell Output: ${sellOutAmount} ${currencySymbol}, Polygon Network Fee: ${polygonFee} USDT, Exchange Fee: ${exchangeFee.toFixed(6)} ${currencySymbol}, Final Net Amount: ${finalNetAmount.toFixed(6)} ${currencySymbol}, Net Profit: ${netProfit.toFixed(6)} ${currencySymbol}`;
+
+                                                    if (netProfit > 0.00) {
+                                                        console.log("Got Profit")
+                                                        saveNetProfit(details);
+                                                    }
 
                                                     return (
                                                         <>
