@@ -401,13 +401,6 @@ function ImprovedDEXComparisonComponent({ tokens, sourceToken, sourceAmount }) {
                                                     // if (!profitData) return 'Loading...';
 
                                                     const { initialAmount, buyOutAmount, sellOutAmount, polygonFee, exchangeFee, finalNetAmount, netProfit } = data;
-                                                    const details = `Initial Amount: ${initialAmount.toFixed(6)} ${currencySymbol}, Buy: ${displayBestRouteExchange(buySellData, token.address, 'buy')}, Buy Output: ${buyOutAmount} ${token.symbol}, Sell: ${displayBestRouteExchange(buySellData, token.address, 'sell')}, Sell Output: ${sellOutAmount} ${currencySymbol}, Polygon Network Fee: ${polygonFee} USDT, Exchange Fee: ${exchangeFee.toFixed(6)} ${currencySymbol}, Final Net Amount: ${finalNetAmount.toFixed(6)} ${currencySymbol}, Net Profit: ${netProfit.toFixed(6)} ${currencySymbol}`;
-
-                                                    if (netProfit > 0.00) {
-                                                        console.log("Got Profit")
-                                                        saveNetProfit(details);
-                                                    }
-
                                                     return (
                                                         <>
                                                             <p><b>Initial Loan Amount:</b> {initialAmount.toFixed(6)} {currencySymbol}</p>
