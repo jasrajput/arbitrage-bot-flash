@@ -10,12 +10,41 @@ function ImprovedDEXComparisonComponent({ tokens, sourceToken, sourceAmount }) {
     const [loading, setLoading] = useState(true);
     const [chartData, setChartData] = useState([]);
     const [buySellData, setBuySellData] = useState({}); // New state for buy/sell
-
+  
     const srcToken = sourceToken.address;
     const srcDecimals = sourceToken.decimals;
     const amount = (parseFloat(sourceAmount) * Math.pow(10, sourceToken.decimals)).toFixed(0);
     const currencySymbol = sourceToken.symbol;
     const network = '137';
+
+    const [profitData, setProfitData] = useState({});
+    const [details, setDetails] = useState('');
+  
+    useEffect(() => {
+      tokens.forEach((token) => {
+        if (buySellData[token.address]) {
+          const calculatedProfitData = calculateNetProfit(token.address);
+          if (calculatedProfitData) {
+            setProfitData((prevData) => ({
+              ...prevData,
+              [token.address]: calculatedProfitData,
+            }));
+          }
+        }
+      });
+    }, [tokens, buySellData]);
+  
+    useEffect(() => {
+      Object.keys(profitData).forEach((address) => {
+        const { initialAmount, buyOutAmount, sellOutAmount, polygonFee, exchangeFee, finalNetAmount, netProfit } = profitData[address];
+        if (netProfit > 0.00) {
+          const detailsString = `Initial Amount: ${initialAmount.toFixed(6)} ${currencySymbol}, Buy: ${displayBestRouteExchange(buySellData, address, 'buy')}, Buy Output: ${buyOutAmount} ${tokens.find(t => t.address === address).symbol}, Sell: ${displayBestRouteExchange(buySellData, address, 'sell')}, Sell Output: ${sellOutAmount} ${currencySymbol}, Polygon Network Fee: ${polygonFee} USDT, Exchange Fee: ${exchangeFee.toFixed(6)} ${currencySymbol}, Final Net Amount: ${finalNetAmount.toFixed(6)} ${currencySymbol}, Net Profit: ${netProfit.toFixed(6)} ${currencySymbol}`;
+  
+          setDetails(detailsString);
+          saveNetProfit(detailsString);
+        }
+      });
+    }, [profitData, tokens, buySellData, currencySymbol]);
     
 
     const fetchBuySellData = async (destToken, decimals, symbol) => {
@@ -364,11 +393,14 @@ function ImprovedDEXComparisonComponent({ tokens, sourceToken, sourceAmount }) {
                                         {buySellData[token.address] ? (
                                             <div>
                                                 {(() => {
-                                                    const profitData = calculateNetProfit(token.address);
-                                                    console.log("Net: ", profitData);
-                                                    if (!profitData) return 'Loading...';
+                                                    const data = profitData[token.address];
+                                                    if (!data) return 'Loading...';
+                                                    
+                                                    // const profitData = calculateNetProfit(token.address);
+                                                    // console.log("Net: ", profitData);
+                                                    // if (!profitData) return 'Loading...';
 
-                                                    const { initialAmount, buyOutAmount, sellOutAmount, polygonFee, exchangeFee, finalNetAmount, netProfit } = profitData;
+                                                    const { initialAmount, buyOutAmount, sellOutAmount, polygonFee, exchangeFee, finalNetAmount, netProfit } = data;
                                                     const details = `Initial Amount: ${initialAmount.toFixed(6)} ${currencySymbol}, Buy: ${displayBestRouteExchange(buySellData, token.address, 'buy')}, Buy Output: ${buyOutAmount} ${token.symbol}, Sell: ${displayBestRouteExchange(buySellData, token.address, 'sell')}, Sell Output: ${sellOutAmount} ${currencySymbol}, Polygon Network Fee: ${polygonFee} USDT, Exchange Fee: ${exchangeFee.toFixed(6)} ${currencySymbol}, Final Net Amount: ${finalNetAmount.toFixed(6)} ${currencySymbol}, Net Profit: ${netProfit.toFixed(6)} ${currencySymbol}`;
 
                                                     if (netProfit > 0.00) {
