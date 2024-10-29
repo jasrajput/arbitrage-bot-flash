@@ -33,10 +33,7 @@ This project identifies and exploits arbitrage opportunities across decentralize
    Create a `.env` file in the root directory and add the following variable:
    ```bash
     REACT_APP_API_KEY=<Your Subgraph API Key>
-<<<<<<< HEAD
-=======
     REACT_APP_WEB_URL=<Your Backend for performing operations on it>
->>>>>>> 652c400 (updated Readme.md file)
    ```
 
 ## Usage
