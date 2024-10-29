@@ -1,7 +1,8 @@
 # DEX Arbitrage Project
 
 ![Alt text](src/images/1.png)
-
+![Alt text](src/images/2.png)
+![Alt text](src/images/3.png)
 
 ## Overview
 This project identifies and exploits arbitrage opportunities across decentralized exchanges (DEXs). By leveraging price discrepancies, users can maximize their profits in the cryptocurrency market.
