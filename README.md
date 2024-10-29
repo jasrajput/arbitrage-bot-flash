@@ -33,8 +33,9 @@ This project identifies and exploits arbitrage opportunities across decentralize
    Create a `.env` file in the root directory and add the following variable:
    ```bash
     REACT_APP_API_KEY=<Your Subgraph API Key>
+   ```
 
-## Configurations
+## Usage
    To start the application, run:
    ```bash
    craco start
