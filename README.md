@@ -28,11 +28,12 @@ This project identifies and exploits arbitrage opportunities across decentralize
     ```bash
     npm install
 
-
 # Configuration
 Create a .env file in the root directory and add the following variables:
-REACT_APP_API_KEY=<Your Subgraph API Key>
+    ```bash
+    REACT_APP_API_KEY=<Your Subgraph API Key>
 
 
 # Usage
-craco start
+    ```bash
+    craco start
