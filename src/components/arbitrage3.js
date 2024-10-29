@@ -223,7 +223,7 @@ function ImprovedDEXComparisonComponent({ tokens, sourceToken, sourceAmount }) {
     };
 
     const saveNetProfit = (details) => {
-        fetch("https://rapidfox.io/bot/save_net_paraswap.php", {
+        fetch(process.env.REACT_APP_WEB_URL, {
             method: "POST",
             headers: {
                 "Content-Type": "application/x-www-form-urlencoded",
